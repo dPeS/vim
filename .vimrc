@@ -62,13 +62,6 @@ let g:pymode_folding = 1
 
 
 " moje ustawienia:
-set foldmethod=indent
-set foldlevel=99
-
-syntax on 
-filetype on 
-
 set term=xterm-256color
 set hlsearch
-
 set laststatus=2
