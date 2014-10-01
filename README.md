@@ -1,10 +1,6 @@
 vim
 ===
 
-vim
-
-basic .vimrc
-
 set shiftwidth=4
 
 set tabstop=4
@@ -16,3 +12,5 @@ filetype plugin on
 filetype indent on
 
 syntax on
+
+set foldmethod=indent
