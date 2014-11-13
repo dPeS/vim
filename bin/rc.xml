@@ -172,12 +172,12 @@
     <!-- Keybindings for desktop switching -->
     <keybind key="A-t">
       <action name="Execute">
-        <command>/home/pepto/bin/bash/term</command>
+        <command>/home/pepto/bin/term</command>
       </action>
     </keybind>
     <keybind key="A-x">
       <action name="Execute">
-        <command>/home/pepto/bin/bash/x</command>
+        <command>xterm -fn -misc-fixed-medium-*-normal--18-120-100-100-c-90-iso10646-1</command>
       </action>
     </keybind>
     <keybind key="A-c">
