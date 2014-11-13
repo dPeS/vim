@@ -1,0 +1,84 @@
+#! /usr/bin/python
+# author: Daniel Smoczyk daniel.smoczyk@gmail.com
+# under GPL3
+# http://library.gnome.org/devel/vte/unstable/
+
+try:
+    import gtk, vte, sys, pdb, threading, time, gobject
+except:
+    print >> sys.stderr, "You need to install the python-gtk and python-vte"
+    sys.exit(1)
+
+kolory = {'fg':'#FFFFFF', 'bg_local':'#000000', 'bg_remote':'#695400'}
+
+class Monitor(threading.Thread): # {{{
+    def __init__(self):
+        super(Monitor, self).__init__()
+        self.quit = False
+    def process_tabs(self):
+        num = n.get_n_pages()
+        print num
+        for i in xrange(num):
+            host = n.get_nth_page(i).get_window_title().split('@')[1].split(':')[0]
+            n.set_tab_label(n.get_nth_page(i), gtk.Label(host))
+            if host != 'korsarz':
+                fg, bg = gtk.gdk.color_parse(kolory['fg']), gtk.gdk.color_parse(kolory['bg_remote'])
+                n.get_nth_page(i).set_colors(fg, bg, [])
+            else:
+                fg, bg = gtk.gdk.color_parse(kolory['fg']), gtk.gdk.color_parse(kolory['bg_local'])
+                n.get_nth_page(i).set_colors(fg, bg, [])
+    def run(self):
+        while not self.quit:
+            time.sleep(1)
+            gobject.idle_add( self.process_tabs )
+ # }}}
+def remove_tab(): # {{{
+    n.remove_page( n.get_current_page() )
+    if n.get_n_pages() == 0: gtk.main_quit() # }}}
+def process_event( w, e ): # {{{
+    #print e.keyval
+    if e.keyval == 65299:
+        pdb.set_trace()
+    if e.keyval > 48 and e.keyval < 54 and e.state == gtk.gdk.MOD1_MASK:
+        n.set_current_page( e.keyval-48-1 ) # 0-index
+        w.set_focus( n.get_nth_page(e.keyval-48-1) )
+        return True
+    elif e.keyval == 110 and e.state == gtk.gdk.MOD1_MASK:
+        gobject.idle_add( create_new_tab )
+        return True
+    # IBM T41 ThinkPad tab-nav keys:
+    '''
+    elif e.keyval == 269025062:
+        n.prev_page()
+    elif e.keyval == 269025063:
+        n.next_page()
+    '''
+ # }}}
+def create_new_tab(): # {{{
+    if n.get_n_pages() > 9:
+        print "too many tabs - 9 limited"
+        return
+    v = vte.Terminal()
+    v.set_scrollback_lines(10000)
+    v.set_font_from_string("Dejavu Sans Mono 9")
+    v.connect ("child-exited", lambda term: remove_tab() )
+    fg, bg = gtk.gdk.color_parse(kolory['fg']), gtk.gdk.color_parse(kolory['bg_local'])
+    v.set_colors(fg, bg, [])
+    v.fork_command()
+    curr = n.append_page( v )
+    w.show_all()
+    # }}}
+if __name__ == '__main__':
+    gobject.threads_init()
+    w = gtk.Window()
+    n = gtk.Notebook()
+    create_new_tab()
+    w.add(n)
+    w.connect('delete-event', lambda w, e: gtk.main_quit())
+    w.connect('key-press-event', lambda w, e: process_event( w, e ) )
+    w.show_all()
+    w.set_focus( n.get_nth_page(0) )
+    monitor = Monitor()
+    monitor.start()
+    gtk.main()
+    monitor.quit = True
