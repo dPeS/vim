@@ -1,6 +1,10 @@
 vim
 ===
 
+best plugins:
+http://vimawesome.com/plugin/python-mode
+http://vimawesome.com/plugin/vim-javascript
+
 set shiftwidth=4
 
 set tabstop=4
