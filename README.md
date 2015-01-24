@@ -23,4 +23,4 @@ xterm
 ===
 
 #!/bin/sh
-xterm -fn -misc-fixed-medium-*-normal--18-120-100-100-c-90-iso10646-1
+xterm -tn xterm-256color -fn -misc-fixed-medium-*-normal--18-120-100-100-c-90-iso10646-1
