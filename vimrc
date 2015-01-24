@@ -3,6 +3,8 @@ set tabstop=4
 set expandtab
 set foldmethod=indent
 
+colorscheme desert
+
 execute pathogen#infect()
 filetype on
 filetype indent on
