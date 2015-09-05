@@ -69,7 +69,8 @@ def process_event(window, e):
 def create_new_tab():
     term = vte.Terminal()
     term.set_scrollback_lines(10000)
-    term.set_font_from_string("Dejavu Sans Mono 10")
+    # term.set_font_from_string("Inconsolata 12")
+    term.set_font_from_string("Monaco 10")
     term.connect("child-exited", lambda term: remove_tab())
     term.set_colors(
         gtk.gdk.color_parse(THEMES['fg']),
