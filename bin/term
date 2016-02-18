@@ -57,7 +57,7 @@ def remove_tab():
 
 
 def process_event(window, e):
-    if e.keyval > 48 and e.keyval < 54 and e.state == gtk.gdk.MOD1_MASK:
+    if e.keyval > 48 and e.keyval < 58 and e.state == gtk.gdk.MOD1_MASK:
         notebook.set_current_page(e.keyval-48-1)  # 0-index
         window.set_focus(notebook.get_nth_page(e.keyval-48-1))
         return True
