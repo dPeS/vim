@@ -12,3 +12,5 @@ call pathogen#helptags()
 
 filetype plugin indent on
 syntax on
+
+map <silent> <leader>b Oimport pdb; pdb.set_trace()<esc>
