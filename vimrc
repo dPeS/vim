@@ -2,6 +2,7 @@
 " :PluginInstall
 " pip install flake8 pylint
 " cmake is needed
+" ./install.py in YouCompleteMe with proper venv
 "
 "
 set nocompatible              " required
