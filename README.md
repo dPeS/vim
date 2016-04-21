@@ -1,23 +1,7 @@
 vim
 ===
 
-best plugins:
-http://vimawesome.com/plugin/python-mode
-http://vimawesome.com/plugin/vim-javascript
-
-set shiftwidth=4
-
-set tabstop=4
-
-set expandtab
-
-filetype plugin on
-
-filetype indent on
-
-syntax on
-
-set foldmethod=indent
+copy vimrc -> .vimrc and follow instructions from header
 
 xterm
 ===
